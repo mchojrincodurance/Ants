@@ -1,41 +1,30 @@
-import java.util.Arrays;
-import java.util.List;
-
 public class Game {
+    private final Board board;
+    private final Position antPosition;
 
-    private List<Square> squares = null;
-
-    public Game() {
-        initDefaultSquares();
+    public Game(Board board) {
+        this.board = board;
+        antPosition = this.board.getCenter();
     }
 
-    private void initDefaultSquares() {
-        squares = Arrays.asList(
-                new Square(), new Square(), new Square(),
-                new Square(), new Square(), new Square(),
-                new Square(), new Square(), new Square()
-        );
-    }
-
-    public Game(int square_number) throws NotOddSquaresNumber {
-        isEven(square_number);
-
-        initSquares(square_number);
-    }
-
-    private void initSquares(int square_number) {
-        for (int i = 0; i < square_number * square_number; i++) {
-            squares.add(new Square());
+    public String showBoard() {
+        String result = "";
+        Position currentPosition = new Position(0, 0);
+        int size = board.getSize();
+        for (Square square : board.getSquares()) {
+            if (currentPosition.equals(antPosition)) {
+                result += "x";
+            } else {
+                result += ".";
+            }
+            if(currentPosition.getCol() == size-1) {
+                result += "\n";
+                currentPosition = new Position(currentPosition.getRow() +1 , 0);
+            }
+            else {
+                currentPosition = new Position(currentPosition.getRow()  , currentPosition.getCol() +1);
+            }
         }
-    }
-
-    private static void isEven(int square_number) throws NotOddSquaresNumber {
-        if (square_number % 2 == 0) {
-            throw new NotOddSquaresNumber();
-        }
-    }
-
-    public List<Square> getSquares() {
-        return squares;
+        return result;
     }
 }
