@@ -45,4 +45,11 @@ public class Board {
         Double size = Math.sqrt(squares.size());
         return  size.intValue();
     }
+
+    public void flip(Position position) {
+        int size = getSize();
+        int i = position.row() *size + position.col();
+        Square square = this.getSquares().get(i);
+        square.flip();
+    }
 }

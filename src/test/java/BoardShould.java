@@ -44,8 +44,8 @@ class BoardShould {
 
         Position center = board.getCenter();
 
-        assertEquals(posCenter, center.getRow());
-        assertEquals(posCenter, center.getCol());
+        assertEquals(posCenter, center.row());
+        assertEquals(posCenter, center.col());
     }
 
 }
